@@ -1,0 +1,108 @@
+<!DOCTYPE html>{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}">
+    <title>AskPupkin</title>
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jumbotron.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'index' %}">AskPupkin</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" formaction="#" placeholder="Search" class="form-control">
+                </div>
+                <a href="{% url 'ask' %}" class="btn btn-warning">Ask question</a>
+                {% if user.is_authenticated %}
+                <div class="form-group" align="right">
+                    <a href="{% url 'profile_edit' %}"><u><font color="#E8E8E8">{{ user.username }}</font></u></a>
+                    <font color="#E8E8E8">||</font>
+                    <a href="{% url 'logout' %}?next={{ request.path }}"><u><font color="#E8E8E8">Log out</font></u></a>
+                </div>
+                <img {% if user.ask_user.avatar %} src="{{ user.ask_user.avatar.url }}" {% endif %} height="35"
+                     width="35" class="img-polaroid">
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-success">Login</a>
+                <a href="{% url 'signup' %}" class="btn btn-success">Sign up</a>
+                {% endif %}
+            </form>
+        </div>
+        <!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+</div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-8">
+            {% block header %}{% endblock %}
+            {% block body %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="page-header">
+                    <h2>Popular tags</h2>
+                </div>
+
+                <div class="col-md-6">
+                    <p><a href="#"><h4>moon</h4></a></p>
+                    <p><a href="#"><h4>space</h4></a></p>
+                    <p><a href="#"><h4>building</h4></a></p>
+                </div>
+                <div class="col-md-6">
+                    <p><a href="#"><h4>mailru</h4></a></p>
+                    <p><a href="#"><h4>yandex</h4></a></p>
+                    <p><a href="#"><h4>google</h4></a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="page-header">
+                    <h2>Best members</h2>
+                </div>
+
+                <div class="col-md-6">
+                    <p><a href="#"><h4>Mr. Freeman</h4></a></p>
+                    <p><a href="#"><h4>Dr. House</h4></a></p>
+                    <p><a href="#"><h4>Bender</h4></a></p>
+                    <p><a href="#"><h4>Queen Victoria</h4></a></p>
+                    <p><a href="#"><h4>V. Pupkin</h4></a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p></p>
+
+    <div class="row">
+        <div class="panel-footer" align="center">track.mail.ru &copy; Ruslan Rakhimov 2015</div>
+    </div>
+    <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block header %}
+
+<div class="page-header">
+    {% if by_rating %}
+    <h2>
+        Hot questions
+        <a href="{% url 'index' %}">
+            <small>New questions</small>
+        </a>
+    </h2>
+    {% else %}
+    <h2>
+        New questions
+        <a href="{% url 'index' %}?by_rating=1">
+            <small>Hot questions</small>
+        </a></h2>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+{% for question in page_obj %}
+<div class="row">
+    <div class="col-md-2">
+        <a href="{{ question.author.get_absolute_url }}">
+            <div class="thumbnail">
+                {% if question.author.user.ask_user.avatar %}
+                <img src="{{ question.author.user.ask_user.avatar.url }}">
+                {% else %}
+                <img src="{% static 'img/quest.png' %}">
+                {% endif %}
+                <div class="caption" align="center">
+                    <b>{{ question.author.user.username }}</b>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-10">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h3>
+
+                <p>
+                    <b>Tags:</b>
+                    {% for tag in question.tags.all %}
+                    <a href="#">{{ tag.text }}</a>
+                    {% endfor %}
+                </p>
+
+                <p>{{ question.text }}</p>
+
+                <p>
+                    <a href="{{ question.get_absolute_url }}" class="btn btn-primary" role="button">Answers <span
+                            class="badge">{{ question.responses.count }}</span></a>
+                    {% if user.is_authenticated %}
+                    <a href="#" class="btn btn-success" role="button">Like <span class="badge">{{ question.likes.count }}</span></a>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% for p in paginator.page_range %}
+        <li class="{% if p.number == page.number %}active{% endif %}"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        {% endfor %}
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+
+{% endblock %}

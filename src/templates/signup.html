@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block header %}
+
+<div class="page-header">
+    <h2>Sign up</h2>
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+<font hidden color="red"><p>Sorry, this email address already registered!</p></font>
+<form>
+    <div class="form-group">
+        <label for="exampleInputUsername">Username</label>
+        <input class="form-control" id="exampleInputUsername" placeholder="Username">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputFile">Upload avatar</label>
+        <input type="file" id="exampleInputFile">
+    </div>
+    <button type="submit" class="btn btn-success">Sign up!</button>
+</form>
+
+{% endblock %}

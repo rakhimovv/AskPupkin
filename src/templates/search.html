@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block header %}
+
+<div class="page-header">
+    <h2>Search: moon park</h2>
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="form-group">
+    <input type="text" placeholder="moon park" class="form-control">
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <div class="row">
+            <img src="{% static 'img/quest.png' %}" style="margin: 18px">
+        </div>
+    </div>
+    <div class="col-md-9">
+        <h3><a href="question.html">How to build a moon park?</a></h3>
+
+        <p><strong>Tags:</strong> <a href="#">moon</a> <a href="#">space</a> <a href="#">building</a></p>
+
+        <p>Guys, i have trouble with a moon park.</p>
+
+        <p><i class="icon-search"></i>Can't find th black-jack...</p>
+        <a href="#">answers (3)</a>
+    </div>
+    <div class="col-md-1">
+        <div class="row">
+            <a href="#"><img src="{% static 'img/like.png' %}" class="img-polaroid" style="margin: 2px"></a>
+            <a href="#"><img src="{% static 'img/dislike.png' %}" class="img-polaroid" style="margin: 2px"></a>
+        </div>
+    </div>
+</div>
+<hr>
+<nav>
+    <ul class="pagination">
+        <li>
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block header %}
+
+<div class="page-header">
+    <h2>Login</h2>
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+<font hidden color="red"><p>Sorry, wrong password!</p></font>
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-2"> {{ form.username.label_tag }} </div>
+        <div class="cold-md-10"> {{ form.username }} </div>
+        <p></p>
+    </div>
+    <div class="row">
+        <div class="col-md-2"> {{ form.password.label_tag }} </div>
+        <div class="cold-md-10"> {{ form.password }} </div>
+        <p></p>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="cold-md-10">
+            <button type="submit" class="btn btn-success">Log in!</button>
+            <input type="hidden" name="next" value="{% url 'index' %}" />
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="cold-md-10">
+        <a href="register.html">create new account</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block header %}
+
+<div class="page-header">
+    <h2>Settings</h2>
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+<font hidden color="red"><p>Sorry, this email address already registered!</p></font>
+<form>
+    <div class="form-group">
+        <label for="exampleInputUsername">Username</label>
+        <input type="text" class="form-control" id="exampleInputUsername" placeholder="{{ user.username }}">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="exampleInputFile">Upload avatar</label>
+        <img {% if user.ask_user.avatar %} src="{{ user.ask_user.avatar.url }}" {% endif %} height="35" width="35"
+             class="img-polaroid">
+        <input type="file" id="exampleInputFile">
+    </div>
+    <button type="submit" class="btn btn-success">Save!</button>
+</form>
+{% else %}
+<meta http-equiv="refresh" content="0; URL='{% url 'login' %}'"/>
+{% endif %}
+
+{% endblock %}
