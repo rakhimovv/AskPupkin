@@ -37,3 +37,4 @@ class Tag(models.Model):
 class Like(models.Model):
     user = models.ForeignKey('User', related_name='likes')
     question = models.ForeignKey('Question', related_name='likes')
+    response = models.ForeignKey('Response', related_name='likes')
