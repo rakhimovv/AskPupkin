@@ -49,11 +49,11 @@
                 <p>
                     <b>Tags:</b>
                     {% for tag in question.tags.all %}
-                    <a href="#">{{ tag.text }}</a>
+                    <a href="#">{{ tag.title }}</a>
                     {% endfor %}
                 </p>
 
-                <p>{{ question.text }}</p>
+                <p>{{ question.content }}</p>
 
                 <p>
                     <a href="{{ question.get_absolute_url }}" class="btn btn-primary" role="button">Answers <span

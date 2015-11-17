@@ -26,7 +26,7 @@ class Home(list_views.ListView):
         if self.request.GET.get('by_tag'):
             queryset = queryset.order_by('-author__rating')
         else:
-            queryset = queryset.order_by('-created')
+            queryset = queryset.order_by('-creation_date')
         return queryset
 
     def get_context_data(self, **kwargs):
