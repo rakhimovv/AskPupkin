@@ -15,7 +15,6 @@ import models
 
 class Home(list_views.ListView):
     template_name = 'index.html'
-    model = models.Question
     paginate_by = 10
 
     def get_queryset(self):
@@ -34,8 +33,16 @@ class Home(list_views.ListView):
         return context
 
 
-class Question(TemplateView):
+class Question(detail_views.SingleObjectMixin, list_views.ListView):
     template_name = 'question.html'
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object(queryset=models.Question.objects.all())
+        return super(Question, self).get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return self.object.responses.order_by('-creation_date').all()
 
 
 class AskQuestion(TemplateView):

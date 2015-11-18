@@ -1,10 +1,6 @@
 from django.db import models
 from django.core import urlresolvers
 from django.db.models import Count
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
-import tags_likes
-import users
 
 
 class QuestionQuerySet(models.QuerySet):
