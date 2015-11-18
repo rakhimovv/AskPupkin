@@ -2,13 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -16,11 +14,12 @@ class Migration(migrations.Migration):
             name='User',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('avatar', models.ImageField(upload_to=b'users_avatars')),
-                ('user', models.OneToOneField(related_name='ask_user', to=settings.AUTH_USER_MODEL)),
+                ('password', models.CharField(max_length=128, verbose_name='password')),
+                ('last_login', models.DateTimeField(null=True, verbose_name='last login', blank=True)),
+                ('avatar', models.ImageField(null=True, upload_to=b'users_avatars', blank=True)),
             ],
             options={
-                'ordering': ['-user'],
+                'abstract': False,
             },
         ),
     ]

@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
             name='Like',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('question', models.ForeignKey(related_name='likes', to='questions.Question')),
-                ('response', models.ForeignKey(related_name='likes', to='questions.Response')),
+                ('question', models.ForeignKey(related_name='likes', blank=True, to='questions.Question', null=True)),
+                ('response', models.ForeignKey(related_name='likes', blank=True, to='questions.Response', null=True)),
                 ('user', models.ForeignKey(related_name='likes', to='users.User')),
             ],
             options={

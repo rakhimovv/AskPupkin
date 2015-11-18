@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
             name='Response',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('content', models.TextField()),
+                ('content', models.TextField(default=b'')),
                 ('is_right', models.BooleanField(default=False)),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
                 ('author', models.ForeignKey(related_name='responses', to='users.User')),
