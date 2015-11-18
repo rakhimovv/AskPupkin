@@ -86,10 +86,41 @@
 {% endfor %}
 
 <div class="row">
+    <div class="col-md-2">
+        {% if user.is_authenticated %}
+        <a href="{{ user.get_absolute_url }}">
+            <div class="thumbnail">
+                {% if user.avatar %}
+                <img src="{{ user.avatar.url }}">
+                {% else %}
+                <img src="{% static 'img/quest.png' %}">
+                {% endif %}
+                <div class="caption" align="center">
+                    <b>{{ user.username }}</b>
+                </div>
+            </div>
+        </a>
+        {% endif %}
+    </div>
+    <div class="col-sm-6 col-md-10">
+        <div class="thumbnail">
+            <div class="caption">
+                <div class="form-group">
+                    <h3><label for="Answer">Write answer:</label></h3>
+                    <textarea class="form-control" id="Answer" rows="2"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success">Answer!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="row">
     <div class="form-group">
         <label for="Answer">Write answer:</label>
         <textarea class="form-control" id="Answer" rows="2"></textarea>
     </div>
     <button type="submit" class="btn btn-success">Answer!</button>
 </div>
+-->
 {% endblock %}

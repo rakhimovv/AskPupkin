@@ -11,7 +11,7 @@ class QuestionQuerySet(models.QuerySet):
         return self.order_by('-creation_date')
 
     def get_by_tag(self, tag):
-        return self.filter(tags__contains=tag).order_by('-creation_date')
+        return self.filter(tags__title__contains=tag).order_by('-creation_date')
 
 
 class Question(models.Model):

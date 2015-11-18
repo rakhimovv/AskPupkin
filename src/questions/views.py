@@ -21,16 +21,16 @@ class Home(list_views.ListView):
         if self.request.GET.get('by_rating'):
             queryset = models.Question.objects.get_popular()
         elif self.request.GET.get('by_tag'):
-            queryset = models.Question.objects.get_by_tag(self.kwargs['by_tag'])
+            queryset = models.Question.objects.get_by_tag(self.request.GET.get('by_tag'))
         else:
             queryset = models.Question.objects.get_last()
         return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super(Home, self).get_context_data(**kwargs)
-        context['by_rating'] = self.request.GET.get('by_rating', '')
-        context['by_tag'] = self.request.GET.get('by_tag', '')
-        return context
+        # def get_context_data(self, **kwargs):
+        #    context = super(Home, self).get_context_data(**kwargs)
+        #    context['by_rating'] = self.request.GET.get('by_rating', '')
+        #    context['by_tag'] = self.request.GET.get('by_tag', '')
+        #    return context
 
 
 class Question(detail_views.SingleObjectMixin, list_views.ListView):
