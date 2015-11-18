@@ -62,7 +62,7 @@ target/
 *.idea
 
 # DB
-# *.sqlite3
+*.sqlite3
 
 # Uploads
-# uploads/
+uploads/
