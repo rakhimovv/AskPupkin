@@ -5,7 +5,7 @@ from django.db.models import Count
 
 class QuestionQuerySet(models.QuerySet):
     def get_popular(self):
-        return self.annotate(likes_count=Count('likes')).order_by('-likes_count')
+        return self.annotate(likes_count=Count('q_likes')).order_by('-likes_count')
 
     def get_last(self):
         return self.order_by('-creation_date')

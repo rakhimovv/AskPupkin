@@ -38,16 +38,14 @@
                 <div class="form-group">
                     {% if user.is_authenticated %}
 
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        {{ user.username }}
-                        <img {% if user.ask_user.avatar %} src="{{ user.ask_user.avatar.url }}" {% endif %} height="20"
-                             width="20" class="img-polaroid">
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{% url 'profile_edit' %}"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
-                        <li><a href="{% url 'logout' %}?next={{ request.path }}"><i
-                                class="glyphicon glyphicon-remove"></i> Log out</a></li>
-                    </ul>
+                    {{ user.username }}
+                    <img {% if user.avatar %} src="{{ user.avatar.url }}" {% else %}
+                         src="{% static 'img/quest.png' %}" {% endif %} class="img-rounded" height="35"
+                         width="35" class="img-polaroid">
+                    <a href="{% url 'profile_edit' %}" class="btn btn-success"><i
+                            class="glyphicon glyphicon-cog"></i></a>
+                    <a href="{% url 'logout' %}?next={{ request.path }}" class="btn btn-success"><i
+                            class="glyphicon glyphicon-remove"></i></a>
                     {% else %}
                     <a href="{% url 'login' %}" class="btn btn-success">Login</a>
                     <a href="{% url 'signup' %}" class="btn btn-success">Sign up</a>

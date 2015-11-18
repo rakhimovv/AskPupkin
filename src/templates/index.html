@@ -59,7 +59,7 @@
                     <a href="{{ question.get_absolute_url }}" class="btn btn-primary" role="button">Answers <span
                             class="badge">{{ question.responses.count }}</span></a>
                     {% if 1 %}<!--user.is_authenticated %}-->
-                    <a href="#" class="btn btn-success" role="button">Like <span class="badge">{{ question.likes.count }}</span></a>
+                    <a href="#" class="btn btn-success" role="button">Like <span class="badge">{{ question.q_likes.count }}</span></a>
                     {% endif %}
                 </p>
             </div>

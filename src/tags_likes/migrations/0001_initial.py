@@ -13,16 +13,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Like',
+            name='QuestionLike',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('question', models.ForeignKey(related_name='likes', blank=True, to='questions.Question', null=True)),
-                ('response', models.ForeignKey(related_name='likes', blank=True, to='questions.Response', null=True)),
-                ('user', models.ForeignKey(related_name='likes', to='users.User')),
+                ('question', models.ForeignKey(related_name='q_likes', blank=True, to='questions.Question', null=True)),
+                ('user', models.ForeignKey(related_name='q_likes', to='users.User')),
             ],
-            options={
-                'ordering': ['-user'],
-            },
+        ),
+        migrations.CreateModel(
+            name='ResponseLike',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('response', models.ForeignKey(related_name='r_likes', blank=True, to='questions.Response', null=True)),
+                ('user', models.ForeignKey(related_name='r_likes', to='users.User')),
+            ],
         ),
         migrations.CreateModel(
             name='Tag',
