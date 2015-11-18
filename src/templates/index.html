@@ -68,41 +68,34 @@
 </div>
 {% endfor %}
 
+{% if page_obj.has_other_pages %}
 <nav>
     <ul class="pagination">
+        {% if page_obj.has_previous %}
         <li>
-            <a href="#" aria-label="Previous">
+            <a href="{% url 'index' %}?by_rating={{ by_rating }}&by_tag={{ by_tag }}&page={{ page_obj.previous_page_number }}"
+               aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
+        {% endif %}
+
         {% for p in paginator.page_range %}
-        <li class="{% if p.number == page.number %}active{% endif %}"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
+        <li class="{% if p == page_obj.number %}active{% endif %}"><a
+                href="{% url 'index' %}?by_rating={{ by_rating }}&by_tag={{ by_tag }}&page={{ p }}">{{ p }}</a>
+        </li>
         {% endfor %}
+
+        {% if page_obj.has_next %}
         <li>
-            <a href="#" aria-label="Next">
+            <a href="{% url 'index' %}?by_rating={{ by_rating }}&by_tag={{ by_tag }}&page={{ page_obj.next_page_number }}"
+               aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
+        {% endif %}
     </ul>
 </nav>
-
-{% if page_obj.has_other_pages %}
-<div class="paginator">
-    {% if page_obj.has_previous %}
-    <a class="buttonish-link"
-       href="{% url 'index' %}?q={{ query }}&by_rating={{ by_rating }}&page={{ page_obj.previous_page_number }}">
-        &lt;</a>
-    {% endif %}
-    <span class="page-number">page #{{ page_obj.number }}</span>
-    {% if page_obj.has_next %}
-    <a class="buttonish-link"
-       href="{% url 'index' %}?q={{ query }}&by_rating={{ by_rating }}&page={{ page_obj.next_page_number }}">&gt;</a>
-    {% endif %}
-</div>
 {% endif %}
 
 

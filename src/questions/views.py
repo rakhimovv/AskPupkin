@@ -15,7 +15,7 @@ import models
 
 class Home(list_views.ListView):
     template_name = 'index.html'
-    paginate_by = 10
+    paginate_by = 2
 
     def get_queryset(self):
         if self.request.GET.get('by_rating'):
@@ -26,11 +26,11 @@ class Home(list_views.ListView):
             queryset = models.Question.objects.get_last()
         return queryset
 
-        # def get_context_data(self, **kwargs):
-        #    context = super(Home, self).get_context_data(**kwargs)
-        #    context['by_rating'] = self.request.GET.get('by_rating', '')
-        #    context['by_tag'] = self.request.GET.get('by_tag', '')
-        #    return context
+    def get_context_data(self, **kwargs):
+        context = super(Home, self).get_context_data(**kwargs)
+        context['by_rating'] = self.request.GET.get('by_rating', '')
+        context['by_tag'] = self.request.GET.get('by_tag', '')
+        return context
 
 
 class Question(detail_views.SingleObjectMixin, list_views.ListView):
