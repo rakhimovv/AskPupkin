@@ -65,4 +65,3 @@ target/
 *.sqlite3
 
 # Uploads
-uploads/
