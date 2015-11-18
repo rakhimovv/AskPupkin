@@ -16,9 +16,11 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 import questions.urls
+import users.urls
 
 urlpatterns = patterns(
     '',
     url(r'^', include(questions.urls)),
+    url(r'^user/', include(users.urls)),
     url(r'^admin/', include(admin.site.urls)),
 )

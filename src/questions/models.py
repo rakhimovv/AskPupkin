@@ -1,7 +1,22 @@
 from django.db import models
 from django.core import urlresolvers
-import users
+from django.db.models import Count
+from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 import tags_likes
+import users
+
+
+class QuestionQuerySet(models.QuerySet):
+    def get_popular(self):
+        return self.annotate(likes_count=Count('likes')).order_by('-likes_count')
+
+    def get_last(self):
+        return self.order_by('-creation_date')
+
+    def get_by_tag(self, tag):
+        return self.filter(tags__contains=tag).order_by('-creation_date')
+
 
 class Question(models.Model):
     title = models.CharField(max_length=200)
@@ -11,6 +26,8 @@ class Question(models.Model):
     author = models.ForeignKey('users.User', related_name='questions')
 
     tags = models.ManyToManyField('tags_likes.Tag', related_name='questions')
+
+    objects = QuestionQuerySet.as_manager()
 
     def get_absolute_url(self):
         return urlresolvers.reverse('question', kwargs={'pk': self.pk})

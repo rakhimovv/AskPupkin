@@ -19,37 +19,24 @@ class Home(list_views.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        queryset = super(Home, self).get_queryset()
-        queryset = queryset.select_related()
-        # if self.request.GET.get('by_rating'):
-        #    queryset = queryset.order_by('-author__rating')
-        if self.request.GET.get('by_tag'):
-            queryset = queryset.order_by('-author__rating')
+        if self.request.GET.get('by_rating'):
+            queryset = models.Question.objects.get_popular()
+        elif self.request.GET.get('by_tag'):
+            queryset = models.Question.objects.get_by_tag(self.kwargs['by_tag'])
         else:
-            queryset = queryset.order_by('-creation_date')
+            queryset = models.Question.objects.get_last()
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
         context['by_rating'] = self.request.GET.get('by_rating', '')
+        context['by_tag'] = self.request.GET.get('by_tag', '')
         return context
-
-
-class Signup(TemplateView):
-    template_name = 'signup.html'
 
 
 class Question(TemplateView):
     template_name = 'question.html'
 
 
-class ProfileEdit(TemplateView):
-    template_name = 'settings.html'
-
-
 class AskQuestion(TemplateView):
     template_name = 'addquestion.html'
-
-
-class Profile(TemplateView):
-    template_name = 'profile.html'

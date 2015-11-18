@@ -115,3 +115,4 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_URL = '/uploads/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+
