@@ -13,7 +13,6 @@
 </head>
 
 <body>
-
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -31,19 +30,29 @@
                 <div class="form-group">
                     <input type="text" formaction="#" placeholder="Search" class="form-control">
                 </div>
-                <a href="{% url 'ask' %}" class="btn btn-warning">Ask question</a>
-                {% if user.is_authenticated %}
-                <div class="form-group" align="right">
-                    <a href="{% url 'profile_edit' %}"><u><font color="#E8E8E8">{{ user.username }}</font></u></a>
-                    <font color="#E8E8E8">||</font>
-                    <a href="{% url 'logout' %}?next={{ request.path }}"><u><font color="#E8E8E8">Log out</font></u></a>
+
+                <div class="form-group">
+                    <a href="{% url 'ask' %}" class="btn btn-warning">Ask question</a>
                 </div>
-                <img {% if user.ask_user.avatar %} src="{{ user.ask_user.avatar.url }}" {% endif %} height="35"
-                     width="35" class="img-polaroid">
-                {% else %}
-                <a href="{% url 'login' %}" class="btn btn-success">Login</a>
-                <a href="{% url 'signup' %}" class="btn btn-success">Sign up</a>
-                {% endif %}
+
+                <div class="form-group">
+                    {% if user.is_authenticated %}
+
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        {{ user.username }}
+                        <img {% if user.ask_user.avatar %} src="{{ user.ask_user.avatar.url }}" {% endif %} height="20"
+                             width="20" class="img-polaroid">
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{% url 'profile_edit' %}"><i class="glyphicon glyphicon-cog"></i> Settings</a></li>
+                        <li><a href="{% url 'logout' %}?next={{ request.path }}"><i
+                                class="glyphicon glyphicon-remove"></i> Log out</a></li>
+                    </ul>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-success">Login</a>
+                    <a href="{% url 'signup' %}" class="btn btn-success">Sign up</a>
+                    {% endif %}
+                </div>
             </form>
         </div>
         <!--/.navbar-collapse -->
@@ -104,5 +113,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</div>
+
 </body>
+
 </html>
