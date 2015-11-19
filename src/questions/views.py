@@ -15,7 +15,7 @@ import models
 
 class Home(list_views.ListView):
     template_name = 'index.html'
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         if self.request.GET.get('by_rating'):
