@@ -7,7 +7,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
     ]
 
     operations = [
@@ -18,7 +17,6 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=200)),
                 ('content', models.TextField()),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
-                ('author', models.ForeignKey(related_name='questions', to='users.User')),
             ],
             options={
                 'ordering': ['-creation_date'],
@@ -31,8 +29,6 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(default=b'')),
                 ('is_right', models.BooleanField(default=False)),
                 ('creation_date', models.DateTimeField(auto_now_add=True)),
-                ('author', models.ForeignKey(related_name='responses', to='users.User')),
-                ('question', models.ForeignKey(related_name='responses', to='questions.Question')),
             ],
             options={
                 'ordering': ['-creation_date'],

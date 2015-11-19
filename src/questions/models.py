@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.core import urlresolvers
 from django.db.models import Count
 
@@ -19,7 +20,7 @@ class Question(models.Model):
     content = models.TextField()
     creation_date = models.DateTimeField(auto_now_add=True)
 
-    author = models.ForeignKey('users.User', related_name='questions')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='questions')
 
     tags = models.ManyToManyField('tags_likes.Tag', related_name='questions')
 
@@ -41,7 +42,7 @@ class Response(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     question = models.ForeignKey('Question', related_name='responses')
 
-    author = models.ForeignKey('users.User', related_name='responses')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responses')
 
     def __unicode__(self):
         return self.content
