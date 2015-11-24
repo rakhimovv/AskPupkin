@@ -11,7 +11,9 @@ from questions.models import Question, Response
 from tags_likes.models import Tag, QuestionLike, ResponseLike
 from django.views.generic.edit import CreateView
 from forms import AddQuestionForm, AddAnswerForm
+from django.core.mail import send_mail
 import models
+from django.conf import settings
 
 
 class Home(list_views.ListView):
@@ -45,7 +47,7 @@ class QuestionView(detail_views.SingleObjectMixin, list_views.ListView, FormMixi
         return super(QuestionView, self).get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return self.object.responses.order_by('-creation_date').all()
+        return self.object.responses.order_by('-creation_date').reverse()
 
     def get_context_data(self, **kwargs):
         context = super(QuestionView, self).get_context_data(**kwargs)
@@ -54,12 +56,26 @@ class QuestionView(detail_views.SingleObjectMixin, list_views.ListView, FormMixi
 
     def post(self, request, *args, **kwargs):
         form = AddAnswerForm(request.POST or None)
+        if not request.user.is_authenticated():
+            return redirect('login')
+
         if form.is_valid():
+            question = models.Question.objects.get_by_id(kwargs['pk'])
             new_response = Response(content=form.cleaned_data['content'],
                                     author=request.user,
-                                    question=models.Question.objects.get_by_id(kwargs['pk']))
+                                    question=question)
             new_response.save()
-            return redirect(new_response.question)
+
+            # Send email to question author
+            if question.author.email:
+                subject = 'New answer for \"' + question.title + '\"'
+                message = str(request.build_absolute_uri()) + '#' + str(new_response.id)
+                from_email = settings.EMAIL_HOST_USER
+                to_email = str(question.author.email)
+                send_mail(subject, message, from_email, [to_email], fail_silently=settings.DEBUG)
+
+            return redirect('/questions/' + str(question.id) + '#' + str(new_response.id))
+
         return redirect(models.Question.objects.get_by_id(kwargs['pk']))
 
 
