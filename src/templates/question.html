@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load widget_tweaks %}
+
 {% load staticfiles %}
 
 {% block header %}
@@ -105,22 +107,19 @@
     <div class="col-sm-6 col-md-10">
         <div class="thumbnail">
             <div class="caption">
-                <div class="form-group">
-                    <h3><label for="Answer">Write answer:</label></h3>
-                    <textarea class="form-control" id="Answer" rows="2"></textarea>
-                </div>
-                <button type="submit" class="btn btn-success">Answer!</button>
+                <form action="" method="post">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <h3><label for="Answer">Write answer:</label></h3>
+                        {# <textarea class="form-control" id="Answer" rows="2"></textarea> #}
+                        {{ form.content|add_class:"form-control"|attr:"rows:2"|attr:"id:Answer" }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Answer!</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-<!--
-<div class="row">
-    <div class="form-group">
-        <label for="Answer">Write answer:</label>
-        <textarea class="form-control" id="Answer" rows="2"></textarea>
-    </div>
-    <button type="submit" class="btn btn-success">Answer!</button>
-</div>
--->
+
 {% endblock %}

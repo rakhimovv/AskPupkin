@@ -14,6 +14,9 @@ class QuestionQuerySet(models.QuerySet):
     def get_by_tag(self, tag):
         return self.filter(tags__title__contains=tag).order_by('-creation_date')
 
+    def get_by_id(self, question_id):
+        return self.get(id=question_id)
+
 
 class Question(models.Model):
     title = models.CharField(max_length=200)
@@ -36,6 +39,14 @@ class Question(models.Model):
         ordering = ['-creation_date']
 
 
+class ResponseQuerySet(models.QuerySet):
+    def get_by_question(self, question):
+        return self.filter(question=question).order_by('-creation_date').reverse()
+
+    def get_by_id(self, answer_id):
+        return self.get(id=answer_id)
+
+
 class Response(models.Model):
     content = models.TextField(default='')
     is_right = models.BooleanField(default=False)
@@ -43,6 +54,8 @@ class Response(models.Model):
     question = models.ForeignKey('Question', related_name='responses')
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='responses')
+
+    objects = ResponseQuerySet.as_manager()
 
     def __unicode__(self):
         return self.content
