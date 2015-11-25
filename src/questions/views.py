@@ -3,6 +3,7 @@ from django.http import HttpResponseForbidden
 from django.views.generic import detail as detail_views
 from django.views.generic import list as list_views
 from django.core.urlresolvers import reverse
+from django.http.response import JsonResponse
 from django.views.generic.edit import FormMixin
 from django import http
 from django.conf.urls import url
@@ -104,3 +105,79 @@ def ask_question(request):
     return render(request, 'addquestion.html', {
         'form': form,
     })
+
+
+def like_question(request):
+    if not request.user.is_authenticated():
+        data = {
+            'status': 'error',
+            'message': 'You are not logged in.'
+        }
+        return JsonResponse(data)
+    if request.method == "POST":
+        question_id = request.POST['question_id']
+        question = Question.objects.get_by_id(question_id)
+        question_rating = question.q_likes.count
+
+        if question.author == request.user:
+            data = {
+                'status': 'error',
+                'message': 'You can\'t rate your own question.'
+            }
+            return JsonResponse(data)
+
+        if QuestionLike.objects.filter(user=request.user, question__id=question_id).exists():
+            data = {
+                'status': 'error',
+                'message': 'You are already rate this question.'
+            }
+            return JsonResponse(data)
+
+        QuestionLike.objects.create(user=request.user, question=question)
+
+        question_rating = question_rating + 1
+
+        data = {
+            'status': 'ok',
+            'rating': question_rating,
+            'message': 'Question is successfully rated.'
+        }
+        return JsonResponse(data)
+
+
+def like_answer(request):
+    if not request.user.is_authenticated():
+        data = {
+            'status': 'error',
+            'message': 'You are not logged in.'
+        }
+        return JsonResponse(data)
+    if request.method == "POST":
+        answer_id = request.POST['answer_id']
+        answer = Response.objects.get_by_id(answer_id)
+        answer_rating = answer.r_likes.count
+
+        if answer.author == request.user:
+            data = {
+                'status': 'error',
+                'message': 'You can\'t rate your own answer.'
+            }
+            return JsonResponse(data)
+
+        if ResponseLike.objects.filter(user=request.user, response__id=answer_id).exists():
+            data = {
+                'status': 'error',
+                'message': 'You are already rate this answer.'
+            }
+            return JsonResponse(data)
+
+        ResponseLike.objects.create(user=request.user, response=answer)
+
+        answer_rating = answer_rating + 1
+
+        data = {
+            'status': 'ok',
+            'rating': answer_rating,
+            'message': 'Answer is successfully rated.'
+        }
+        return JsonResponse(data)

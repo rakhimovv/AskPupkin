@@ -47,7 +47,12 @@
 
                 <p>
                     {% if 1 %}<!--user.is_authenticated %}-->
-                    <a href="#" class="btn btn-success" role="button">Like <span class="badge">{{ question.q_likes.count }}</span></a>
+                    <button data-question-id="{{ question.id }}" class="like_question btn btn-success" type="button">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                        <span class="question-rating badge" data-question-id="{{ question.id }}">
+                            {{ question.q_likes.count }}
+                        </span>
+                    </button>
                     {% endif %}
                 </p>
             </div>
@@ -78,7 +83,14 @@
 
                 <p>
                     {% if 1 %}<!--user.is_authenticated %}-->
-                    <a href="#" class="btn btn-success" role="button">Like <span class="badge">{{ answer.r_likes.count }}</span></a>
+                    <!--<a href="#" class="btn btn-success" role="button">Like <span class="badge">{{ answer.r_likes.count }}</span></a>
+-->
+                    <button data-answer-id="{{ answer.id }}" class="like_answer btn btn-success" type="button">
+                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                        <span class="answer-rating badge" data-answer-id="{{ answer.id }}">
+                            {{ answer.r_likes.count }}
+                        </span>
+                    </button>
                     {% endif %}
                 </p>
             </div>

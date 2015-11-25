@@ -9,8 +9,8 @@ from django.conf.urls.static import static
 urlpatterns = patterns(
     '',
     url(r'^$', views.Home.as_view(), name='index'),
-    # url(r'^questions/ask/$', views.AskQuestion.as_view(), name='ask'),
-    # url(r'^questions/ask/$', CreateView.as_view(model = views.AskQuestion), name='ask'),
     url(r'^questions/ask/$', views.ask_question, name='ask'),
     url(r'^questions/(?P<pk>\d+)/$', views.QuestionView.as_view(), name='question'),
+    url(r'^like_question/$', views.like_question, name='like_question'),
+    url(r'^like_answer/$', views.like_answer, name='like_answer'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
