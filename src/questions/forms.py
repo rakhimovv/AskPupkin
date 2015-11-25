@@ -12,7 +12,7 @@ class AddQuestionForm(forms.Form):
             raise ValidationError(u'Too long question title.')
         return self.cleaned_data['title']
 
-    def clean_text(self):
+    def clean_content(self):
         if len(self.cleaned_data['content']) > 1000:
             raise ValidationError(u'Too long question text.')
         return self.cleaned_data['content']
@@ -30,7 +30,7 @@ class AddQuestionForm(forms.Form):
 class AddAnswerForm(forms.Form):
     content = CharField(widget=Textarea)
 
-    def clean_text(self):
-        if len(self.cleaned_data['content']) > 1000:
+    def clean_content(self):
+        if len(self.cleaned_data['content']) > 2:
             raise ValidationError(u'Too long answer text.')
         return self.cleaned_data['content']

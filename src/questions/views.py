@@ -19,7 +19,7 @@ from django.conf import settings
 
 class Home(list_views.ListView):
     template_name = 'index.html'
-    paginate_by = 3
+    paginate_by = 10
 
     def get_queryset(self):
         if self.request.GET.get('by_rating'):
@@ -41,7 +41,7 @@ class QuestionView(detail_views.SingleObjectMixin, list_views.ListView, FormMixi
     model = Response
     form_class = AddAnswerForm
     template_name = 'question.html'
-    paginate_by = 5
+    paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         self.object = models.Question.objects.get_by_id(kwargs['pk'])
@@ -77,7 +77,11 @@ class QuestionView(detail_views.SingleObjectMixin, list_views.ListView, FormMixi
 
             return redirect('/questions/' + str(question.id) + '#' + str(new_response.id))
 
-        return redirect(models.Question.objects.get_by_id(kwargs['pk']))
+        return render(request, 'question.html', {
+            'question': models.Question.objects.get_by_id(kwargs['pk']),
+            'page_obj': models.Question.objects.get_by_id(kwargs['pk']).responses.order_by('-creation_date').reverse(),
+            'form': form,
+        })
 
 
 @login_required
