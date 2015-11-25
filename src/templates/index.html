@@ -57,20 +57,16 @@
 
                 <p>
                     <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
-                        Answers
+                        <span class="glyphicon glyphicon-pencil"></span>
                         <span class="badge">{{ question.responses.count }}</span>
                     </a>
 
-
-                    {% if 1 %}<!--user.is_authenticated %}-->
                     <button data-question-id="{{ question.id }}" class="like_question btn btn-success" type="button">
                         <span class="glyphicon glyphicon-thumbs-up"></span>
                         <span class="question-rating badge" data-question-id="{{ question.id }}">
                             {{ question.q_likes.count }}
                         </span>
                     </button>
-
-                    {% endif %}
                 </p>
             </div>
         </div>
