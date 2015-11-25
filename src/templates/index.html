@@ -5,7 +5,17 @@
 {% block header %}
 
 <div class="page-header">
-    {% if by_rating %}
+    {% if by_tag %}
+    <h2>
+        Tag: {{ by_tag }}
+        <a href="{% url 'index' %}">
+            <small>New questions</small>
+        </a>
+        <a href="{% url 'index' %}?by_rating=1">
+            <small>Hot questions</small>
+        </a>
+    </h2>
+    {% elif by_rating %}
     <h2>
         Hot questions
         <a href="{% url 'index' %}">
@@ -17,7 +27,8 @@
         New questions
         <a href="{% url 'index' %}?by_rating=1">
             <small>Hot questions</small>
-        </a></h2>
+        </a>
+    </h2>
     {% endif %}
 </div>
 
