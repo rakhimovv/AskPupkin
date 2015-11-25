@@ -13,4 +13,5 @@ urlpatterns = patterns(
     url(r'^questions/(?P<pk>\d+)/$', views.QuestionView.as_view(), name='question'),
     url(r'^like_question/$', views.like_question, name='like_question'),
     url(r'^like_answer/$', views.like_answer, name='like_answer'),
+    url(r'^check_correct_answer/$', views.check_correct_answer, name='check-correct-answer'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

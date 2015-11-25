@@ -181,3 +181,49 @@ def like_answer(request):
             'message': 'Answer is successfully rated.'
         }
         return JsonResponse(data)
+
+
+def check_correct_answer(request):
+    # "true" or "false"
+    checked = request.POST['checked']
+    if not request.user.is_authenticated():
+        data = {
+            'status': 'error',
+            'checked': checked,
+            'message': 'You are not logged in.'
+        }
+        return JsonResponse(data)
+
+    if request.method == "POST":
+        answer_id = request.POST['answer_id']
+        checked = request.POST['checked']
+        answer = Response.objects.get_by_id(answer_id)
+
+        if not answer.question.author == request.user:
+            data = {
+                'status': 'error',
+                'checked': checked,
+                'message': 'This question isn\'t yours.'
+            }
+            return JsonResponse(data)
+
+        if checked == "true":
+            answer.is_right = False
+            answer.save()
+
+            data = {
+                'status': 'ok',
+                'checked': 'false',
+                'message': 'Answer is successfully unchecked.'
+            }
+            return JsonResponse(data)
+        else:
+            answer.is_right = True
+            answer.save()
+
+            data = {
+                'status': 'ok',
+                'checked': 'true',
+                'message': 'Answer is successfully checked.'
+            }
+            return JsonResponse(data)

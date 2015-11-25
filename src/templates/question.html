@@ -91,6 +91,17 @@
                             {{ answer.r_likes.count }}
                         </span>
                     </button>
+
+                <div class="checkbox" style="padding: 10px 0;">
+                    <label>
+                        {# У чекбокса установлен класс answer-checkbox для доступа к объектам этого класса через js#}
+                        <input class="answer-checkbox" data-answer-id="{{ answer.id }}" type="checkbox"
+                               {% if answer.is_right %}
+                               checked
+                               {% endif %}>
+                        Correct!
+                    </label>
+                </div>
                     {% endif %}
                 </p>
             </div>
