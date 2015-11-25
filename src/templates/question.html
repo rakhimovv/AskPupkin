@@ -37,7 +37,7 @@
                 <h3><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h3>
 
                 <p>
-                    <b>Tags:</b>
+                    <span class="glyphicon glyphicon-tags"></span>
                     {% for tag in question.tags.all %}
                     <a href="{% url 'index' %}?by_tag={{ tag.title }}">{{ tag.title }}</a>
                     {% endfor %}
@@ -107,6 +107,36 @@
     </div>
 </div>
 {% endfor %}
+
+{% if page_obj.has_other_pages %}
+<nav>
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li>
+            <a href="{{ question.get_absolute_url }}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        {% endif %}
+
+        {% for p in paginator.page_range %}
+        <li class="{% if p == page_obj.number %}active{% endif %}">
+            <a href="{{ question.get_absolute_url }}?page={{ p }}">
+                {{ p }}
+            </a>
+        </li>
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li>
+            <a href="{{ question.get_absolute_url }}?page={{ page_obj.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
 
 <div class="row">
     <div class="col-md-2">

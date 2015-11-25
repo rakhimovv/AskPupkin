@@ -47,7 +47,7 @@
                 <h3><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h3>
 
                 <p>
-                    <b>Tags:</b>
+                    <span class="glyphicon glyphicon-tags"></span>
                     {% for tag in question.tags.all %}
                     <a href="{% url 'index' %}?by_tag={{ tag.title }}">{{ tag.title }}</a>
                     {% endfor %}
@@ -57,7 +57,8 @@
 
                 <p>
                     <a href="{{ question.get_absolute_url }}" class="btn btn-primary">
-                        <span class="glyphicon glyphicon-pencil"></span>
+                        {# <span class="glyphicon glyphicon-pencil"></span> #}
+                        Answers
                         <span class="badge">{{ question.responses.count }}</span>
                     </a>
 

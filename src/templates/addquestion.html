@@ -20,17 +20,26 @@
     {% for error in form.title.errors %}
     <div class="alert alert-danger" role="alert">{{ error }}</div>
     {% endfor %}
+    {% for error in form.text.errors %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
+    {% for error in form.tags.errors %}
+    <div class="alert alert-danger" role="alert">{{ error }}</div>
+    {% endfor %}
 
     <div class="form-group">
         <label for="Title">Title</label>
         {# <textarea class="form-control" id="Title" rows="1"></textarea> #}
         {{ form.title|add_class:"form-control"|attr:"rows:1"|attr:"id:Title" }}
     </div>
+
     <div class="form-group">
         <label for="Content">Text</label>
         {# <textarea class="form-control" id="Content" rows="3"></textarea> #}
         {{ form.content|add_class:"form-control"|attr:"rows:3"|attr:"id:Content" }}
     </div>
+
+
     <div class="form-group">
         <label for="Tags">Tags</label>
         {# <textarea class="form-control" id="Tags" rows="1"></textarea> #}

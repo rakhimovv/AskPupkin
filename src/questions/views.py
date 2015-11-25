@@ -19,7 +19,7 @@ from django.conf import settings
 
 class Home(list_views.ListView):
     template_name = 'index.html'
-    paginate_by = 10
+    paginate_by = 3
 
     def get_queryset(self):
         if self.request.GET.get('by_rating'):
@@ -41,7 +41,7 @@ class QuestionView(detail_views.SingleObjectMixin, list_views.ListView, FormMixi
     model = Response
     form_class = AddAnswerForm
     template_name = 'question.html'
-    paginate_by = 10
+    paginate_by = 5
 
     def get(self, request, *args, **kwargs):
         self.object = models.Question.objects.get_by_id(kwargs['pk'])
