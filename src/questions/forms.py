@@ -31,6 +31,6 @@ class AddAnswerForm(forms.Form):
     content = CharField(widget=Textarea)
 
     def clean_content(self):
-        if len(self.cleaned_data['content']) > 2:
+        if len(self.cleaned_data['content']) > 10:
             raise ValidationError(u'Too long answer text.')
         return self.cleaned_data['content']

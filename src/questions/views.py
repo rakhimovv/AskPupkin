@@ -73,6 +73,7 @@ class QuestionView(detail_views.SingleObjectMixin, list_views.ListView, FormMixi
                 message = str(request.build_absolute_uri()) + '#' + str(new_response.id)
                 from_email = settings.EMAIL_HOST_USER
                 to_email = str(question.author.email)
+                print(subject, message, from_email, [to_email])
                 send_mail(subject, message, from_email, [to_email], fail_silently=settings.DEBUG)
 
             return redirect('/questions/' + str(question.id) + '#' + str(new_response.id))
